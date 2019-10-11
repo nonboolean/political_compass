@@ -17,8 +17,4 @@ For example:
 ```
 python compass_plot.py ot.png
 ```
-or
-```
-python compass_plot.py ot.pdf
-```
 Will automatically read from `coordinates.csv`, so you'll have to update the code if you move that file. 
