@@ -10,11 +10,10 @@ def plot(file):
     # data from everyone who's posted their scores/images in thread
     # https://forums.civfanatics.com/threads/left-or-right-of-me.643849/
     df = pd.read_csv('coordinates.csv')
-    people = [[p.user, p.econ, p.auth] for _, p in df.iterrows()]
 
     # average score
-    average_x = sum(p[1] for p in people) / len(people)
-    average_y = sum(p[2] for p in people) / len(people)
+    average_x = df['econ'].mean()
+    average_y = df['auth'].mean()
     print('Average: (%.2f, %.2f)' % (average_x, average_y))
     people.append(["Average", average_x, average_y])
 
@@ -32,10 +31,10 @@ def plot(file):
     plt.axhline(linewidth=2, color='black', alpha=0.6)
 
     # plot OT gender-questioning commie-terrorist supercluster
-    plt.scatter([p[1] for p in people], [p[2] for p in people], color='red', s=7)
+    plt.scatter(df['econ'], df['auth'], color='red', s=7)
 
     # username labels
-    texts = [plt.text(p[1], p[2], p[0], fontsize=8) for p in people]
+    texts = [plt.text(x=p.econ, y=p.auth, s=p.user, fontsize=8) for _, p in df.iterrows()]
     adjust_text(texts)
 
     # axis labels
